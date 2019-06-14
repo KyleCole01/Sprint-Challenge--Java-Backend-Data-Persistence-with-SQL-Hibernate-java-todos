@@ -27,16 +27,12 @@ public class RolesController
         List<Role> allRoles = roleService.findAll();
         return new ResponseEntity<>(allRoles, HttpStatus.OK);
     }
-
-
     @GetMapping(value = "/role/{roleId}", produces = {"application/json"})
     public ResponseEntity<?> getRole(@PathVariable Long roleId)
     {
         Role r = roleService.findRoleById(roleId);
         return new ResponseEntity<>(r, HttpStatus.OK);
     }
-
-
     @PostMapping(value = "/role")
     public ResponseEntity<?> addNewRole(@Valid @RequestBody Role newRole) throws URISyntaxException
     {
@@ -51,8 +47,6 @@ public class RolesController
 
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
-
-
     @DeleteMapping("/role/{id}")
     public ResponseEntity<?> deleteRoleById(@PathVariable long id)
     {

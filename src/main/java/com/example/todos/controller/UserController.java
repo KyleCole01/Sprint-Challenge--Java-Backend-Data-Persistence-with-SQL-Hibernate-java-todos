@@ -14,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,7 +29,8 @@ public class UserController
     @GetMapping(value = "/users", produces = {"application/json"})
     public ResponseEntity<?> listAllUsers()
     {
-        List<User> myUsers = userService.findAll();
+        List<User> myUsers = new ArrayList<>();
+                userService.findAll().iterator().forEachRemaining(myUsers::add);
         return new ResponseEntity<>(myUsers, HttpStatus.OK);
     }
 
@@ -40,16 +42,12 @@ public class UserController
         User u = userService.findUserById(userId);
         return new ResponseEntity<>(u, HttpStatus.OK);
     }
-
-
     @GetMapping(value = "/getusername", produces = {"application/json"})
     @ResponseBody
     public ResponseEntity<?> getCurrentUserName(Authentication authentication)
     {
         return new ResponseEntity<>(authentication.getPrincipal(), HttpStatus.OK);
     }
-
-
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping(value = "/user", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<?> addNewUser(@Valid @RequestBody User newuser) throws URISyntaxException
@@ -74,8 +72,6 @@ public class UserController
         userService.update(updateUser, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/user/{id}")
     public ResponseEntity<?> deleteUserById(@PathVariable long id)

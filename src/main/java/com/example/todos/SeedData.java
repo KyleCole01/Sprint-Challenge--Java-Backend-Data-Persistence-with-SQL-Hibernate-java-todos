@@ -26,7 +26,7 @@ public class SeedData implements CommandLineRunner {
         this.userrepos = userrepos;
         this.todorepos = todorepos;
     }
- 
+
     @Override
     public void run(String[] args) throws Exception
     {
@@ -47,7 +47,6 @@ public class SeedData implements CommandLineRunner {
         User u2 = new User("admin", "password", admins);
 
 
-        // the date and time string should get coverted to a datetime Java data type. This is done in the constructor!
         u1.getTodos().add(new Todo("Finish java-orders-swagger", "2019-01-13 04:04:04", u1));
         u1.getTodos().add(new Todo("Feed the turtles", "2019-03-01 04:04:04", u1));
         u1.getTodos().add(new Todo("Complete the sprint challenge", "2019-02-22 04:04:04", u1));

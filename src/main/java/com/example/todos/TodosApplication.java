@@ -10,10 +10,6 @@ public class TodosApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(TodosApplication.class, args);
-//        ApplicationContext ctx = SpringApplication.run(TodosApplication.class, args);
-//
-//        DispatcherServlet dispatcherServlet = (DispatcherServlet)ctx.getBean("dispatcherServlet");
-//        dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
     }
 
 }
