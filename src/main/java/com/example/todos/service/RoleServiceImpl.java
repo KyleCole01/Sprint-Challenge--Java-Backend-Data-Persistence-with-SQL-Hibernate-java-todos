@@ -1,7 +1,7 @@
 package com.example.todos.service;
 
-import com.example.safezoos.models.Role;
-import com.example.safezoos.repositories.RoleRepository;
+import com.example.todos.model.Role;
+import com.example.todos.repo.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,16 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service(value = "roleService")
-public class RoleServiceImpl implements RoleService
-{
+public class RoleServiceImpl implements RoleService {
     @Autowired
-    RoleRepository rolerepos;
+    RoleRepository repo;
 
     @Override
     public List<Role> findAll()
     {
         List<Role> list = new ArrayList<>();
-        rolerepos.findAll().iterator().forEachRemaining(list::add);
+        repo.findAll().iterator().forEachRemaining(list::add);
         return list;
     }
 
@@ -28,15 +27,15 @@ public class RoleServiceImpl implements RoleService
     @Override
     public Role findRoleById(long id)
     {
-        return rolerepos.findById(id).orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
+        return repo.findById(id).orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
     }
 
 
     @Override
     public void delete(long id)
     {
-        rolerepos.findById(id).orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
-        rolerepos.deleteById(id);
+        repo.findById(id).orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
+        repo.deleteById(id);
     }
 
 
@@ -44,6 +43,6 @@ public class RoleServiceImpl implements RoleService
     @Override
     public Role save(Role role)
     {
-        return rolerepos.save(role);
+        return repo.save(role);
     }
 }
