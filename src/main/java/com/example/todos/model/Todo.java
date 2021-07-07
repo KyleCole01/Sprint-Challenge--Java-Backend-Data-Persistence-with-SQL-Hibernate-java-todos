@@ -1,38 +1,46 @@
 package com.example.todos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "todo")
 public class Todo extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false)
     private long todoid;
 
     @Column(nullable = false)
     private String description;
 
-    private Date datestarted;
+    private String datestarted;
 
     private boolean completed;
 
     @ManyToOne
-    @JoinColumn(name = "userid")
-    @Column(nullable = false)
+    @JoinColumn(name = "todos")
+    @JsonIgnoreProperties("todos")
     private User user;
 
     public Todo() {
     }
 
-    public Todo(String description, Date datestarted, boolean completed) {
+    public Todo(String description, String datestarted, boolean completed) {
         this.description = description;
         this.datestarted = datestarted;
         this.completed = completed;
     }
 
-    public Todo(String description, Date datestarted, boolean completed, User user) {
+
+    public Todo(String description, String datestarted, User user) {
+        this.description = description;
+        this.datestarted = datestarted;
+        this.user = user;
+        this.completed = false;
+    }
+
+    public Todo(String description, String datestarted, boolean completed, User user) {
         this.description = description;
         this.datestarted = datestarted;
         this.completed = completed;
@@ -55,11 +63,11 @@ public class Todo extends Auditable {
         this.description = description;
     }
 
-    public Date getDatestarted() {
+    public String getDatestarted() {
         return datestarted;
     }
 
-    public void setDatestarted(Date datestarted) {
+    public void setDatestarted(String datestarted) {
         this.datestarted = datestarted;
     }
 

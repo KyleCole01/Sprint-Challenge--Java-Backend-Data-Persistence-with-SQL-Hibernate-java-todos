@@ -23,23 +23,21 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter
     @Override
     public void configure(HttpSecurity http) throws Exception
     {
-        // http.anonymous().disable();
         http.authorizeRequests()
-            .antMatchers("/",                       // h2
-                                   "/h2-console/**",          // h2
-                                   "/v2/api-docs",            // swagger
-                                   "/swagger-resources",      // swagger
-                                   "/swagger-resources/**",   // swagger
-                                   "/configuration/ui",       // swagger
-                                   "/configuration/security", // swagger
-                                   "/swagger-ui.html",        // swagger
-                                   "/webjars/**"              // swagger
-                        ).permitAll()
-                .antMatchers("/users/*").authenticated()
+                .antMatchers("/",                       // h2
+                        "/h2-console/**",          // h2
+                        "/v2/api-docs",            // swagger
+                        "/swagger-resources",      // swagger
+                        "/swagger-resources/**",   // swagger
+                        "/configuration/ui",       // swagger
+                        "/configuration/security", // swagger
+                        "/swagger-ui.html",        // swagger
+                        "/webjars/**"              // swagger
+                ).permitAll()
+                .antMatchers("/users/**").authenticated()
                 .antMatchers("/roles", "/actuator/**").hasAnyRole("ADMIN")
-            .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
+                .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
 
-        // http.requiresChannel().anyRequest().requiresSecure();
         http.csrf().disable();
         http.headers().frameOptions().disable();
     }
